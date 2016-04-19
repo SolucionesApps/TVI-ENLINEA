@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>TVI-ENLINEA</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<link rel="stylesheet" href="css/font-awesome.min.css" />
+		<link rel="stylesheet" href="css/jquery.mobile.min.css" />
+		<link rel="stylesheet" href="vendor/waves/waves.min.css" />
+		<link rel="stylesheet" href="vendor/wow/animate.css" />
+		<link rel="stylesheet" href="css/nativedroid2.css" />
+
+		<meta name="mobile-web-app-capable" content="yes">
+	 	<meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        
+	</head>
+	<body>
+
+		<div data-role="page">
+
+			<nd2-include data-src="examples/fragments/panel.left.html"></nd2-include>
+
+			<div data-role="panel" id="bottomsheet" data-animate="false" data-position='bottom' data-display="overlay">
+				<nd2-include data-src="examples/fragments/bottom.sheet.html"></nd2-include>
+			</div>
+
+			<div data-role="header" data-position="fixed" class="wow fadeInDown" data-wow-delay="0.2s">
+				
+				<a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
+				<h1 class="wow fadeIn" data-wow-delay='0.4s'><img WIDTH=60 HEIGHT=50 src="img/tevienlinealogo.png"></h1>
+			</div>
+
+			<div role="main" class="ui-content" data-inset="false">
+				<div class="col-xs-12 col-sm-6 col-md-4">
+                    
+						<div class="box">
+                        <form name="principal" method="POST" action="">
+                        <label for="select-choice-1b" class="select">Estado:</label>
+                        <select name="estado" id="Estado" data-native-menu="true">
+                            <option>Selecciona tu estado</option>
+                            
+                        </select>
+                        <label for="select-choice-1b" class="select">Municipio:</label>
+                        <select name="municipio" id="Municipio" data-native-menu="true">
+                            <option>Selecciona tu municipio</option>
+                            
+                        </select>
+                       
+                        <label for="name2b">Que busca?</label>
+                        <input type="text" name="name2" id="name2" value="" data-clear-btn="true" placeholder="Plomero, Electricista ">
+                        <input type="button" name="Buscar" value="Buscar">
+                        </form>
+                        </div>
+
+                </div>
+                
+			</div>
+            <div role="main" id ="lista"  hidden class="ui-content" data-inset="false">
+                <ul data-role="listview" data-icon="false">
+				<li data-role="list-divider">
+					Opciones:
+				</li>
+				<li>
+					<a href="#">
+						<img src="//lorempixel.com/150/150/people/6/" class="ui-thumbnail ui-thumbnail-circular" />
+						<h2>Gale Cecil</h2>
+						<p>gale.cecil@company.com</p>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="//lorempixel.com/150/150/people/5/" class="ui-thumbnail ui-thumbnail-circular" />
+						<h2>Bernard Desrosier</h2>
+						<p>bernhard.desrosier@company.com</p>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="//lorempixel.com/150/150/people/7/" class="ui-thumbnail ui-thumbnail-circular" />
+						<h2>Emerita Scholl</h2>
+						<p>emerita.scholl@company.com</p>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="//lorempixel.com/150/150/people/8/" class="ui-thumbnail ui-thumbnail-circular" />
+						<h2>Elmer Eyer</h2>
+						<p>elmer.eyer@company.com</p>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="//lorempixel.com/150/150/people/9/" class="ui-thumbnail ui-thumbnail-circular" />
+						<h2>Shona Mckibben</h2>
+						<p>shona.mckibben@company.com</p>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="//lorempixel.com/150/150/people/10/" class="ui-thumbnail ui-thumbnail-circular" />
+						<h2>Hilma Mercer</h2>
+						<p>hilma.mercer@company.com</p>
+					</a>
+				</li>
+			</ul>
+            </div>
+
+		</div>
+
+		<script src="js/jquery.min.js"></script>
+        <script src="js/jquery-1.12.3.min.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+		<script src="js/jquery.mobile.min.js"></script>
+		<script src="vendor/waves/waves.min.js"></script>
+		<script src="vendor/wow/wow.min.js"></script>
+		<script src="js/nativedroid2.js"></script>
+		<script src="nd2settings.js"></script>
+        <script>
+            
+            $(document).ready(function() {
+             
+            $.ajax({
+            type: "POST",
+            url: "procesar_estados.php",
+            data: { estados : "Mexico" } 
+            }).done(function(data){
+            $("#Estado").html(data);
+                
+            });
+            // Obtener municipios
+           $("#Estado").change(function(){
+            var estado = $("#Estado option:selected").val();
+            $.ajax({
+            type: "POST",
+            url: "procesar_estados.php",
+            data: { municipios : estado } 
+            }).done(function(data){
+            $("#Municipio").html(data);
+            });
+            });
+                     
+            });
+        </script>
+
+	</body>
+</html>
